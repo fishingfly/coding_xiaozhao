@@ -1,0 +1,5 @@
+Given a binary tree, determine if it is height-balanced.
+For this problem, a height-balanced binary tree is defined as a binary tree in which the depth of the two subtrees of every node never differ by more than 1.
+判断思想先判断左右两棵树深度是否小于等于1，但是还要继续判断这两颗子树是不是平衡二叉树，
+因为前一层判断存在漏洞，比如左子树中左右子树深度为3，1；右子树深度为4，1；则通过前一层判断，
+但是这不是平衡二叉树，所以还继续判断；
