@@ -1,11 +1,9 @@
-class Solution {
-public:
-    int maxSubArray(int A[], int n) {
-        if (n <= 0) {
+    public int maxSubArray(int[] A) {
+        if (A.length <= 0) {
             return 0;
         }
         int nCount = 0;
-        int nGreatNum = 0;
+        int nGreatNum = A[0];
         for(int i = 0; i < A.length; i++) {
             if (nCount <= 0) {
                 nCount = A[i];
@@ -18,4 +16,3 @@ public:
         }
         return nGreatNum;
     }
-};
