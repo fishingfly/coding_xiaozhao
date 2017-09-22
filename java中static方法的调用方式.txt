@@ -1,0 +1,2 @@
+类中的static方法使用如下格式进行调用：class.staticMethod();或者实例对象.staticMethod();
+接口中的static方法使用如下：不能用实现类去调用staticMethod();必须用：接口名.staticMethod();
