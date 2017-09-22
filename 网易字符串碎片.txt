@@ -1,0 +1,50 @@
+一个由小写字母组成的字符串可以看成一些同一字母的最大碎片组成的。例如,"aaabbaaac"是由下面碎片组成的:'aaa','bb','c'。牛牛现在给定一个字符串,请你帮助计算这个字符串的所有碎片的平均长度是多少。
+
+输入描述:
+输入包括一个字符串s,字符串s的长度length(1 ≤ length ≤ 50),s只含小写字母('a'-'z')
+
+
+输出描述:
+输出一个整数,表示所有碎片的平均长度,四舍五入保留两位小数。
+
+如样例所示: s = "aaabbaaac"
+所有碎片的平均长度 = (3 + 2 + 3 + 1) / 4 = 2.25
+
+import java.util.*;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+class format {
+    double f;
+    format(double f) {
+        this.f = f;
+    }
+    public void m2() {
+        DecimalFormat df = new DecimalFormat("#.00");
+        System.out.println(df.format(f));
+    }
+};
+public class Main {
+    public static void solution(char[] data) {
+        int len = data.length;
+        char last = data[0];
+        int count = 1;
+        for(int i = 1; i < len; i++) {
+            if(data[i] != last) {
+                count++;
+                last = data[i];
+            } else {
+                continue;
+            }
+        }
+        format f = new format((double)len/(double)count);
+        f.m2();
+    }
+    public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
+        while(s.hasNext()){
+            char[] data = s.nextLine().toCharArray();
+            solution(data);
+        }
+    }
+};
