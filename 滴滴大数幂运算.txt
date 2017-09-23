@@ -1,0 +1,69 @@
+package test1;
+
+import java.math.BigInteger;
+import java.util.Scanner;
+
+public class Main {
+	public static void computerBigInteger(String n1,int n2){
+		//小数点的位数
+		int len = n1.length();
+		int location = -1;
+		String n3 = n1; 
+		if (n1.indexOf(".") >= 0) {
+			location = n1.indexOf(".");
+			System.out.println(location);
+			n3 = n1.substring(location+1, len);
+			String n4 = n1.substring(0, location);
+			n3 = n4.concat(n3);
+		}
+		int value = (len-1-location)*n2;
+		BigInteger num = new BigInteger(String.valueOf(value)); 
+		//两个整数相乘
+		BigInteger b1 = new BigInteger(n3);
+		BigInteger b2 = b1.pow(n2);
+		char[] temp = (b2.toString()).toCharArray();
+		if(location==-1){
+			print(temp,-1);
+		}else{
+			print(temp,value);
+		}
+		
+	}
+	
+	public static void print(char[] temp,int value){
+		System.out.println("小数点："+value);
+		int len = temp.length;
+		if (len > value){
+			for(int i = 0;i<len;i++){
+				if(i != value-1)
+					System.out.print(temp[i]);
+				else{
+					System.out.print("."+temp[i]);
+				}
+			}
+		}else{
+			System.out.print("0");
+			System.out.print(".");
+			for(int i=0;i<value-1;i++){
+				System.out.print("0");
+			}
+			for(int i = 0;i<len;i++){
+				System.out.print(temp[i]);
+			}
+		}
+		
+	}
+	private static int pow(int i, int j) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public static void main(String[] args){
+        Scanner in = new Scanner(System.in);
+        while (in.hasNext()) {//注意while处理多个case
+        	String temp = in.nextLine();
+        	if(temp.isEmpty()) continue;
+            String[] a = temp.split(" ");
+            computerBigInteger(a[0],Integer.parseInt(a[1]));      
+	}
+}
+}
