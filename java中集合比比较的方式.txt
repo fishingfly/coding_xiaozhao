@@ -1,0 +1,9 @@
+ArrayList<Integer> list;
+Collections.sort(list,new Comparator<Integer>(){
+       @Override
+       public int compare(Integer str1, Integer str2) {       
+          String s1=str1+""+str2;
+          String s2=str2+""+str1;
+          return s1.compareTo(s2);
+       }
+});
