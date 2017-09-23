@@ -1,0 +1,7 @@
+for循环的执行顺序用如下表达式：
+for(expression1;expression2;expression3){
+  expression4;
+}
+总的来说，执行的顺序是一致的。先条件判断（expression2），再函数体执行（expression4），
+最后for执行（expression3）。往复......区别在于，条件判断的对象。第一次判断时，对象为
+初始化语句（expression1），后续的判断对象为执行后的结果
