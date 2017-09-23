@@ -1,0 +1,8 @@
+在java 中，声明一个数组时，不能直接限定数组长度，只有在创建实例化对象时，才能对给定数组长度.。
+如下，1，2,3可以通过编译，4，5不行。而String是Object的子类，所以上述BCF均可定义一个存放50个
+String类型对象的数组。
+1. String a[]=new String[50];
+2. String b[];
+3. char c[];
+4. String d[50];
+5. char e[50];
