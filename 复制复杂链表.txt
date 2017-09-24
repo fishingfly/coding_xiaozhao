@@ -1,0 +1,60 @@
+/*
+public class RandomListNode {
+    int label;
+    RandomListNode next = null;
+    RandomListNode random = null;
+
+    RandomListNode(int label) {
+        this.label = label;
+    }
+}
+*/
+public class Solution {
+    public RandomListNode Clone(RandomListNode pHead)
+    {
+        //第一步复制链表
+  		cloneNodes(pHead);
+        //第二步复制随机节点的指向
+    	ConnectRandomNodes(pHead);
+        //第三步将整个列表按奇数和偶数分开
+		return ReconnectNodes(pHead);
+    }
+    public void cloneNodes(RandomListNode pHead) {
+    	RandomListNode pNode = pHead;
+    	while (pNode != null) {
+    		RandomListNode newNode = new RandomListNode(pNode.label);
+    		newNode.random = null;
+    		newNode.next = pNode.next;
+    		
+    		pNode.next = newNode;
+    		pNode = newNode.next;	
+    	}
+    }
+    
+    public void ConnectRandomNodes(RandomListNode pHead) {
+    	RandomListNode pNode = pHead;
+    	while(pNode!= null) {
+    		RandomListNode pClone = pNode.next;
+            if(pNode.random != null) {
+                pClone.random = pNode.random.next;
+            }
+            pNode = pClone.next;
+    	}
+    }
+    
+    public RandomListNode ReconnectNodes(RandomListNode pHead) {
+    	if (pHead == null) return null;
+    	RandomListNode pHeadNew = pHead.next;
+    	RandomListNode result = pHeadNew;
+    	pHead.next = pHeadNew.next;
+        pHead = pHead.next;
+        
+    	while(pHead != null) {
+			pHeadNew.next = pHead.next;
+            pHeadNew = pHeadNew.next;
+            pHead.next = pHeadNew.next;
+            pHead = pHead.next;
+    	}
+    	return result;
+    }
+}
