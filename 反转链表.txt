@@ -1,0 +1,58 @@
+这是第一种方法用栈的结构存储所有节点，然后一个个POP出来再连接上就行
+public class Solution {
+    public ListNode ReverseList(ListNode head) {
+    	if ( head == null ) {
+    		return null;
+    	}
+        Stack<ListNode> stack = new Stack<ListNode>();
+        int i = 0;
+        while (head != null) {
+        	stack.add(head);
+        	head = head.next;
+        	i++;
+        }
+        ListNode result = new ListNode(stack.pop().val);
+        ListNode newList = result;
+        while ( !stack.isEmpty() ) {
+        	result.next = new ListNode(stack.pop().val);
+        	result = result.next;
+        }
+        return newList;  
+    }
+}
+
+第二种方法是剑指OFFER上的，跟上面一种方法不一样的是不需要额外的空间结构，直接反转；
+注意点就是中间反转会存在断裂，需要用一个变量缓存一下
+
+import java.util.*;
+/*
+public class ListNode {
+    int val;
+    ListNode next = null;
+
+    ListNode(int val) {
+        this.val = val;
+    }
+}*/
+public class Solution {
+    public ListNode ReverseList(ListNode head) {
+    	if ( head == null ) {
+    		return null;
+    	}
+    	ListNode tail = new ListNode(head.val);
+    	//第一个节点的next 是null
+    	head = head.next;
+    	ListNode tempList;
+    	while ( head!= null) {
+    		//先存储后面的节点
+    		tempList = head.next;
+    		//逆向一个节点
+    		head.next = tail;
+    		tail = head; 
+    		//head指向下一个要处理的节点
+    	    head = tempList;
+    	}
+    	
+        return tail;    
+    }
+}
