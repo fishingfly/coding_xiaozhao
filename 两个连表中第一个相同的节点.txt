@@ -1,0 +1,51 @@
+解题思路：让长的链表先走N步，然后两个链表一起走，直到两个节点的值相等，这个节点就是第一个相同的节点。
+N的值有两个链表的长度差决定。
+
+还有一种想法，用空间换时间：用两个栈存储两个链表，比较第一个不相同的节点的前一个节点就是我们要找的节点
+或者反转链表后，一个个查找，找到第一个不相同的节点的前一个节点就是我们要找的节点
+
+/*
+public class ListNode {
+    int val;
+    ListNode next = null;
+
+    ListNode(int val) {
+        this.val = val;
+    }
+}*/
+public class Solution {
+    public ListNode FindFirstCommonNode(ListNode pHead1, ListNode pHead2) {
+        int length1 = getListLength(pHead1);
+        int length2 = getListLength(pHead2);
+        int differ = length2 - length1;
+        ListNode longList;
+        ListNode shortList;
+        if (differ > 0) {
+            longList = pHead2;
+            shortList = pHead1;            
+        } else {
+            longList = pHead1;
+            shortList = pHead2; 
+        }
+        differ = Math.abs(differ);
+        while (differ > 0) {
+            longList = longList.next;
+            differ--;
+        }
+        while (longList != null && shortList != null) {
+            if (longList.val == shortList.val) break;
+            longList = longList.next;
+            shortList = shortList.next;
+        }
+        return longList;
+    }
+    
+    public int getListLength(ListNode pHead) {
+        int length = 0;
+        while(pHead != null) {
+            length++;
+            pHead = pHead.next;
+        }
+        return length;
+    }
+}

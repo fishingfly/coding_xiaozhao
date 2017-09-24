@@ -1,0 +1,33 @@
+用二分法来查找
+
+public class Solution {
+    public int GetNumberOfK(int [] array , int k) {
+       int count = 0;
+       int start = 0;
+       int end = array.length - 1;
+       int end1 = end;
+       int mid = (end - start)/2 + start;
+       while ( start <= mid && end >= mid) {
+           if (array[mid] == k) {
+               break;
+           } else if (array[mid] < k) {
+               //要查找的数在右边
+               start = mid + 1;
+           } else {
+               //要查找的数在左边
+               end = mid - 1; 
+           }
+           mid = (end - start)/2 + start;
+       }
+       if (mid >end1 || mid <0) return 0;
+       //从id的左边开始查找有多少个k
+       for (int i = mid;i >= start;i--){
+           if (array[i] == k) count++;
+       }
+       //从id的右边开始查找有多少个k
+       for (int i = mid + 1;i <= end;i++){
+           if (array[i] == k) count++;
+       }
+       return count;
+    }
+}
