@@ -1,0 +1,61 @@
+这个方法把每个节点都便利了好几遍，复杂度有点高了，最好用下面这个方法
+public class Solution {
+    
+    public boolean IsBalanced_Solution(TreeNode root) {
+        if ( root == null ) { return true; }
+        int leftDept = TreeDepth(root.left) + 1;
+        int rightDept = TreeDepth(root.right) + 1;
+        if ( Math.abs(leftDept - rightDept) > 1) { return false;}
+        boolean result = IsBalanced_Solution(root.left) &&  IsBalanced_Solution(root.right);
+        return result;
+    }
+    
+    public int TreeDepth(TreeNode root) {
+        if (root == null) return 0;
+        int leftDept = TreeDepth(root.left) + 1;
+        int rightDept = TreeDepth(root.right) + 1;
+        return leftDept > rightDept ? leftDept : rightDept;
+    }
+    
+}
+
+正解在这里，因为我们要尽量避免重复遍历节点所带来的时间复杂度，所以
+最好的方式是解决如何实现节点只遍历一次。
+其实如果知道左右两颗子树的深度，那这棵树的深度就是两颗子树中较大深度加一即是这颗树的深度了。
+所以，我们决定用后续便利的方式，从数的最左边叶子节点下手，一层一层往上遍历，只有有一颗子树不是
+平衡二叉树就说明整棵树不是平衡二叉树了。
+
+
+
+class Depth {
+	public int depth;
+	public Depth(int i) {
+		this.depth = i;
+	}
+}
+public class Solution {
+    
+    public boolean IsBalanced_Solution(TreeNode root) {
+    	Depth depth = new Depth(0);
+        return IsBanlanced(root, depth);
+    }
+    
+    public boolean IsBanlanced(TreeNode root, Depth depth) {
+    	if (root == null) {
+    		depth.depth = 0;
+    		return true;
+    	}
+    	Depth depth_left = new Depth(0);
+    	Depth depth_right = new Depth(0);
+    	if ( IsBanlanced(root.left, depth_left) && IsBanlanced(root.right, depth_right)) {
+    		if (Math.abs(depth_left.depth - depth_right.depth) <= 1) {
+    			depth.depth = depth_left.depth > depth_right.depth ? depth_left.depth : depth_right.depth;
+    			depth.depth++;
+    			return true;
+    		}
+    	}
+    	return false;
+    }
+}
+
+
