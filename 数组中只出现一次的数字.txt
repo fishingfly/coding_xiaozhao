@@ -1,0 +1,39 @@
+第一种方法最为老土，主要是为了熟悉JAVA中HashMap的使用方法，思想就是：
+遍历一遍整个数组，将数字出现的次数都统计出来，记录在MAP结构中，然后再
+去读出来，算法复杂度是O（n）,空间复杂度是o(n)
+
+//num1,num2分别为长度为1的数组。传出参数
+//将num1[0],num2[0]设置为返回结果
+import java.util.*;
+import java.util.Map.Entry;
+public class Solution {
+    public void FindNumsAppearOnce(int [] array,int num1[] , int num2[]) {
+        HashMap<Integer,Integer> map = new HashMap<Integer,Integer>();
+        int len = array.length;
+        int temp = 0;
+        for (int i = 0; i < len; i++) {
+        	if (map.containsKey(array[i])) {
+        	    temp = (map.get(array[i]).intValue());
+        		temp++;
+        		map.put(array[i], temp);
+        	} else {
+        		map.put(array[i], 1);
+        	}
+        }
+        
+        boolean findOne = false;
+        Iterator iter = map.entrySet().iterator();
+        while (iter.hasNext()) {
+        	Map.Entry<Integer, Integer> tempMap = (Entry<Integer, Integer>) iter.next();
+        	if (tempMap.getValue().intValue() == 1) {
+        		if (findOne) {
+        			num2[0] = tempMap.getKey().intValue();
+        		} else {
+        			num1[0] = tempMap.getKey().intValue();
+                    findOne = true;
+        		}
+        	}
+        }
+        
+    }
+}
