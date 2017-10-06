@@ -1,0 +1,89 @@
+/*
+第一种方法，对对象排序，对象本身实现了Comparable接口的int compareTo(Object obj)方法，当申明treeset时会自动按该方法排序
+第二中方法是在申明TreeSet时指定实现comparator借口的对象
+
+*/
+public class test {
+	public static void main(String[] args) {
+		Set<Student> s = new TreeSet<Student>();
+		s.add(new Student("zhouyu",24));
+		s.add(new Student("xupu",23));
+		s.add(new Student("zhoasdauyu",21));
+		Iterator iter1 = s.iterator();
+		while(iter1.hasNext()) {
+			System.out.println(((Student) iter1.next()).getAge());
+		}
+	}
+}
+class Student implements Comparable{
+	private int age;
+	private String name;
+	
+	public Student(String name, int age) {
+		this.name = name;
+		this.age = age;
+	}
+	
+	public String getName() {
+		return this.name;
+	}
+	
+	public int getAge() {
+		return this.age;
+	}
+	
+	public int compareTo(Object obj) {
+		if(!(obj instanceof Student))
+			throw new RuntimeException("obj 不是Student的对象");
+		Student s = (Student)obj;
+		if(this.age > s.age) return 1;
+		if(this.age == s.age) {
+			return this.name.compareTo(s.name);
+		}
+		return -1;
+	}
+}
+
+//下面开始实现第二种方法
+
+		Set<Student> s = new TreeSet<Student>(new testComparator());
+		s.add(new Student("zhpouyu",19));
+		s.add(new Student("xupu",18));
+		s.add(new Student("zhp1ouyu",117));
+		Iterator iter1 = s.iterator();
+		while(iter1.hasNext()) {
+			System.out.println(((Student) iter1.next()).getAge());
+		}
+
+class Student {
+	private int age;
+	private String name;
+	
+	public Student(String name, int age) {
+		this.name = name;
+		this.age = age;
+	}
+	
+	public String getName() {
+		return this.name;
+	}
+	
+	public int getAge() {
+		return this.age;
+	}
+}
+
+class testComparator implements Comparator<Student> {
+
+	@Override
+	public int compare(Student o1, Student o2) {
+		if (o1.getAge() > o2.getAge()) return 1;
+		if (o1.getAge() == o2.getAge()) {
+			return o1.getName().compareTo(o2.getName());
+		}
+		return -1;
+	}
+	
+}
+
+
