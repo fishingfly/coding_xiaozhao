@@ -1,0 +1,17 @@
+Map<String, Integer> m = new HashMap<String, Integer>();
+m.put("zhouyu", 1);
+m.put("xipu", 2);
+Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+for(Map.Entry<String, Integer> entry : m.entrySet()) {
+	System.out.println("key:"+entry.getKey()+",value:"+entry.getValue());
+}
+Iterator<Map.Entry<String, Integer>> iter = m.entrySet().iterator();
+while (iter.hasNext()) {
+	Map.Entry<String, Integer> entry = iter.next();
+	System.out.println("key:"+entry.getKey()+",value:"+entry.getValue());
+}
+
+/*
+map的两种遍历方式，使用了entryset, Entry是map借口中的子接口
+
+*/
