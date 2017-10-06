@@ -1,0 +1,58 @@
+/*
+lock
+在并发量比较小的情况下，使用synchronized是个不错的选择，但是在并发量比较高的情况下，其性能下降很严重，此时ReentrantLock是个不错的方案。
+*/
+
+
+package testFor1006;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+class PrintQueue {
+	private final Lock queueLock = new ReentrantLock();
+	
+	public void printJob(Object document) {
+		queueLock.lock();
+		try {
+			Long duration = (long)(Math.random()*1000);
+			System.out.println(Thread.currentThread().getName()+":PrintQueue:Printing a Job during "
+					+ (duration/1000) + " seconds");
+			Thread.sleep(duration);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		finally {
+			queueLock.unlock();
+		}
+	}
+}
+
+class Job implements Runnable {
+	private PrintQueue printqueue;
+	
+	public Job(PrintQueue printqueue) {
+		this.printqueue = printqueue;
+	}
+	
+	public void run() {
+		System.out.printf("%s: Going to print a document\n", Thread.currentThread().getName());
+		printqueue.printJob(new Object());
+		System.out.printf("%s: The document has been printed\n", Thread.currentThread().getName());
+	}
+}
+
+public class LockDemo {
+	public static void main(String[] args) {
+		PrintQueue printqueue = new PrintQueue();
+		Thread[] thread=new Thread[10];
+		System.out.println("asdasdasd");
+		for (int i = 0; i < 10; i++) {
+			System.out.println("aaaaa");
+			thread[i] = new Thread(new Job(printqueue),"Thread" + i);
+		}
+		for (int j = 0; j < 10; j++) {
+			System.out.println("abbbbb");
+			thread[j].start();
+		}
+	}
+}
