@@ -1,5 +1,5 @@
 
-/*TreeSet,LinkedHashSet,HashSet底层都是使用hashmap*/
+/*TreeSet,LinkedHashSet,HashSet底层都是使用TreeMAp和hashmap*/
 /*
 第一种方法，对对象排序，对象本身实现了Comparable接口的int compareTo(Object obj)方法，当申明treeset时会自动按该方法排序
 第二中方法是在申明TreeSet时指定实现comparator借口的对象
