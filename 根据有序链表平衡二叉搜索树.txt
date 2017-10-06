@@ -2,3 +2,5 @@ Given a singly linked list where elements are sorted in ascending order, convert
 思想就是递归；
 减少内存损耗，使用指针追缉，一个指针遍历速度是另一个指针的两倍。用来找到中间节点，也就是根节点
 中间有巧妙地一部用来切断链表；
+
+平衡二叉树必须具备如下特性：它是一棵空树或它的左右两个子树的高度差的绝对值不超过1，并且左右两个子树都是一棵平衡二叉树。
