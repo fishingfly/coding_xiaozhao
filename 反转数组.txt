@@ -1,0 +1,50 @@
+/*
+ * 
+ *
+ public void isInverseArray(int[] A, int len) {
+		if (len <= 1) {
+			System.out.println("no");
+			return;
+		}
+		int last = A[0];
+		int begin = 0;
+		int end = 0;
+		boolean findInverse = false;
+		for (int i = 1; i < len; i++) {
+			if (A[i] > last) {
+				if (findInverse) break;
+				begin = i;
+			} else {
+				end = i;
+				findInverse = true;
+			}
+			last = A[i];
+		}
+		if (begin == len - 1) {
+			System.out.println("no");
+			return;
+		}
+		inverseArray(A, begin, end);
+		int temp = A[0];
+		for (int i = 1; i < len; i++) {
+			if (A[i] < temp) {
+				System.out.println("no");
+				return;
+			}
+			temp = A[i];
+		}
+		System.out.println("yes");
+	}
+	
+	public void inverseArray(int[] A, int begin, int end) {
+		while (begin < end) {
+			swap(A,begin++,end--);
+		}
+	}
+	
+	public void swap(int[] A, int index1, int index2) {
+		int temp = A[index1];
+		A[index1] = A[index2];
+		A[index2] = temp;
+	}
+ */
