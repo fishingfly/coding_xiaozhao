@@ -1,0 +1,66 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
+import java.math.BigInteger;
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+    	Scanner sc = new Scanner(System.in);
+    	int a = sc.nextInt();
+    	int b = sc.nextInt();
+    	decide(a,b);
+    	
+    }
+    
+    public static void decide(int a, int b) {
+//    	if(!(b ==2 || b ==4 || b ==6 || b ==8)){ 
+//    		System.out.println(-1);
+//    		return;
+//    	}
+    	StringBuilder str = new StringBuilder("1");
+    	int len = str.length();
+    	boolean jin = false;
+    	int count = 0;
+    	while (len < 400) {
+    		for (int i = len-1; i >= 0; i--) {
+    			int temp = str.charAt(i)-'0';
+    			temp = temp*2;
+    			if(jin) {
+    				temp++;
+    				jin = false;
+    			}
+    			if(temp>=10) {
+    				temp = temp%10;
+    				str.setCharAt(i, (char) ('0'+temp));
+    				jin = true;
+    			} else {
+    				str.setCharAt(i, (char) ('0'+temp));
+    			}
+    		}
+    		if (jin) {
+    			str = new StringBuilder("1").append(str);
+    		}
+    		len = str.length();
+    		count++;
+    		if (str.charAt(0) == (char) ('0'+a) && str.charAt(len-1) == (char) ('0'+b)){
+    			System.out.println(str);
+    			System.out.println(count);
+    			return;
+    		}
+    		jin = false;
+    	}
+    	System.out.println(-1);
+//    	BigInteger T = new BigInteger("2");
+//    	int n = 0;
+//    	while (n>0){
+//    		BigInteger temp = T.pow(n);
+//    		String str = temp.toString();
+//    		if (str.charAt(0) == (char)a) {
+//    			System.out.println(str);
+//    			return;
+//    		}
+//    	}
+    }
+}

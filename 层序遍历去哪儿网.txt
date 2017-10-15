@@ -1,0 +1,85 @@
+按层打印二叉树（去哪儿网2017春招真题）
+
+给定一棵二叉树的前序（根、左、右）和中序（左、根、右）的打印结果，输出此二叉树按层（从左往右）打印结果。
+例如一棵二叉树前序：1 2 4 5 3；中序：4 2 5 1 3。可以构建出下图所示二叉树：
+按层打印的结果则为：1 2 3 4 5。
+
+
+package test20171013;
+
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+
+class TreeNode {
+	int val;
+	TreeNode left;
+	TreeNode right;
+	TreeNode(int val) {
+		this.val = val;
+	}
+}
+
+public class Main {
+	public static Queue<TreeNode> q= new LinkedList<TreeNode>();
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		while(sc.hasNext()) {
+			int len = sc.nextInt();
+			int[] A = new int[len];
+			int[] B = new int[len];
+			for(int i = 0; i< len; i++) {
+				A[i] = sc.nextInt();
+			}
+			for(int i = 0; i< len; i++) {
+				B[i] = sc.nextInt();
+			}
+			TreeNode head = insertRoot(A, B, 0, A.length-1,0);
+			print(head);
+		}
+
+	}
+	
+	public static void print(TreeNode head) {
+		if (head == null) return;
+		q.add(head);
+		while(!q.isEmpty()) {
+			TreeNode temp = q.poll();
+			System.out.print(temp.val);
+			System.out.print(" ");
+			if(temp.left != null) 
+				q.add(temp.left);
+			if(temp.right != null) 
+				q.add(temp.right);
+		}
+	}
+	
+	public static TreeNode insertRoot(int[] A, int[] B, int start, int end, int rootIndex) {
+		if (start > end || start < 0 || end < 0) return null;
+		TreeNode head = null;
+		if (rootIndex >= 0) {
+			head = new TreeNode(A[rootIndex]);
+		}
+		int[] len = computerTreeLength(A[rootIndex], B, start, end);
+		if (len[1] > 0) {//左子树存在
+			head.left = insertRoot(A, B, len[0]-len[1], len[0] - 1, rootIndex+1);
+		}
+		if (len[2] > 0) {//右子树存在
+			head.right = insertRoot(A, B, len[0] + 1,len[0]+len[2], rootIndex+len[1]+1);
+		}
+		return head;
+	}
+	
+	public static int[] computerTreeLength(int value, int[] B, int start, int end) {
+		int index = -1;
+		for(int i = start; i <= end; i++) {
+			if(value == B[i]) {
+				index = i;
+				break;
+			}
+		}
+		int[] len = {index, index - start, end - index};
+		return len;
+	}
+}
+ 
