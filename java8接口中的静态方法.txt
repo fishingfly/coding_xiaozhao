@@ -1,0 +1,40 @@
+博客中有详细讲解：http://blog.csdn.net/u013276277/article/details/78373232
+public class Main {
+	public static void main(String[] args) {
+		System.out.println(Calculator.getInstance().add(1, 2));
+	}
+}
+
+//定义一个接口，实现加减乘除
+interface Calculator {
+	static Calculator getInstance() {
+		return new BasicCalculator();
+	}
+	int add(int first, int second);
+	int subtract(int first, int second);
+	int divide(int first, int second);
+	int multiply(int first, int second);
+}
+
+class BasicCalculator implements Calculator {
+
+	@Override
+	public int add(int first, int second) {
+		return first + second;
+	}
+
+	@Override
+	public int subtract(int first, int second) {
+		return first - second;
+	}
+
+	@Override
+	public int divide(int first, int second) {
+		return first / second;
+	}
+
+	@Override
+	public int multiply(int first, int second) {
+		return first*second;
+	}
+}
