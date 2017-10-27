@@ -1,0 +1,70 @@
+//ÏêÇé¼û²©¿Í£ºhttp://blog.csdn.net/u013276277/article/details/78369148
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.function.Predicate;
+
+public class Main {
+	public static void main(String[] args){
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		for(int i = 0; i < 10; i++){
+			list.add(i);
+		}
+//		print(list,n -> true);
+//		print(list,n -> n % 2 == 0);
+//		print(list,n -> n >3);
+		ContextClass context = new ContextClass(new SumAllEvent());
+		context.print(list);
+		
+	}
+	
+//	public static void print(ArrayList<Integer> list, Predicate<Integer> p){
+//		int total = 0;
+//		for (int number : list) {
+//			if (p.test(number)) {
+//				total += number;
+//			}
+//		}
+//		System.out.println(total);
+//	}
+
+}
+
+interface Strategy {
+	public boolean test(int sum);
+}
+
+class SumAll implements Strategy {
+	public boolean test (int num) {
+		return true;
+	}
+}
+
+class SumAllEvent implements Strategy {
+	public boolean test (int num) {
+		return num % 2 == 0;
+	}
+}
+
+class ContextClass {
+	private Strategy s= null;
+	public ContextClass(Strategy s) {
+		if(s != null){
+			this.s = s;
+		} else {
+			this.s = new SumAll();
+		}
+	}
+	
+	public void print(List<Integer> numbers) {
+		int total = 0;
+		for (int number : numbers) {
+			if (s.test(number)) {
+				total += number;
+				System.out.println(number);
+			}
+		}
+	}
+}
