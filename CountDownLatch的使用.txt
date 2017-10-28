@@ -1,0 +1,46 @@
+²©¿ÍµØÖ·£ºhttp://blog.csdn.net/u013276277/article/details/78384778
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.CountDownLatch;
+
+public class CountdownLatchDemo {
+	public static void main(String[] args) {
+		CountDownLatch latch = new CountDownLatch(2);
+		Worker w1 = new Worker("Fishing",2000,latch);
+		Worker w2 = new Worker("Astall",1000,latch);
+		w1.start();
+		w2.start();
+		try {
+			latch.await();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("All work done!!");
+	}
+}
+
+class Worker extends Thread {
+	String workerName;
+	int workTime;
+	CountDownLatch latch;
+	public Worker(String workerName, int workTime, CountDownLatch latch) {
+		this.workerName = workerName;
+		this.workTime = workTime;
+		this.latch = latch;
+	}
+	public void run() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		System.out.println("Worker"+workerName+"do work begin at"+sdf.format(new Date()));
+		doWork();
+		System.out.println("Worker"+workerName+"do work complete at" + sdf.format(new Date()));
+		latch.countDown();
+	}
+	private void doWork() {
+		try {
+			Thread.sleep(workTime);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+}
